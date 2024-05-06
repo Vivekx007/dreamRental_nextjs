@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 
 export const metadata = {
-  title: "PropertyPulse | Find The Perfect Rental",
+  title: "DreamRental | Find The Perfect Rental",
   description: "Find the perfect rental property in your area.",
   keywords: "rental, find rental, find property, rental property",
 };
