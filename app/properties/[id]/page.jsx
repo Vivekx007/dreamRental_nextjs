@@ -1,18 +1,32 @@
 "use client";
-import { useParams, useSearchParams, useRouter } from "next/navigation";
-// import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import { fetchProperty } from "@/utils/requests";
 
 const PropertiesPage = () => {
-  const searchParams = useSearchParams();
-  const router = useRouter();
   const { id } = useParams();
-  const name = searchParams.get("names");
-  return (
-    <div>
-      <button className="bg-blue-500 p-2" onClick={() => router.push("/")}>
-        Go Home {name}{" "}
-      </button>
-    </div>
-  );
+
+  const [property, setProperty] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPropertyData = async () => {
+      if (!id) return;
+
+      try {
+        const property = await fetchProperty(id);
+        setProperty(property);
+      } catch (error) {
+        console.error("Error fetching property", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (property === null) {
+      fetchPropertyData();
+    }
+  }, [id, property]);
+  return <div></div>;
 };
 export default PropertiesPage;
