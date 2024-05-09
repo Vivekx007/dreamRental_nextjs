@@ -11,6 +11,8 @@ import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 const Navbar = () => {
   const { data: session } = useSession(); // data is renamed to session
 
+  const profileImage = session?.user?.image;
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [providers, setProviders] = useState(null);
@@ -24,7 +26,7 @@ const Navbar = () => {
     };
     setAuthProviders();
   }, []);
-
+  console.log(providers);
   return (
     <nav className="bg-blue-700 border-b border-blue-500">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -165,8 +167,10 @@ const Navbar = () => {
                     <span className="sr-only">Open user menu</span>
                     <Image
                       className="h-8 w-8 rounded-full"
-                      src={profileLogo}
+                      src={profileImage || profileLogo}
                       alt=""
+                      width={40}
+                      height={40}
                     />
                   </button>
                 </div>
@@ -187,6 +191,7 @@ const Navbar = () => {
                       role="menuitem"
                       tabIndex="-1"
                       id="user-menu-item-0"
+                      onClick={() => setIsProfileMenuOpen(false)}
                     >
                       Your Profile
                     </Link>
@@ -196,6 +201,7 @@ const Navbar = () => {
                       role="menuitem"
                       tabIndex="-1"
                       id="user-menu-item-2"
+                      onClick={() => setIsProfileMenuOpen(false)}
                     >
                       Saved Properties
                     </Link>
@@ -205,6 +211,10 @@ const Navbar = () => {
                       role="menuitem"
                       tabIndex="-1"
                       id="user-menu-item-2"
+                      onClick={() => {
+                        setIsProfileMenuOpen(false);
+                        signOut();
+                      }}
                     >
                       Sign Out
                     </button>
