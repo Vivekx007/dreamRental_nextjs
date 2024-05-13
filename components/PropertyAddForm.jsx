@@ -32,9 +32,78 @@ const PropertyAddForm = () => {
     images: [],
   });
 
-  const handleChange = (e) => {};
-  const handleAmenitiesChange = (e) => {};
-  const handleImageChange = (e) => {};
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    // Check if the field is nested
+    if (name.includes(".")) {
+      const [outerKey, innerKey] = name.split(".");
+      console.log(outerKey, innerKey);
+
+      setFields(
+        (prevFields) => (
+          console.log(prevFields[outerKey]),
+          {
+            ...prevFields,
+            [outerKey]: {
+              ...prevFields[outerKey],
+              [innerKey]: value,
+            },
+          }
+        )
+      );
+    } else {
+      // If the field is not nested
+      setFields((prevFields) => ({
+        ...prevFields,
+        [name]: value,
+      }));
+    }
+  };
+  const handleAmenitiesChange = (e) => {
+    const { value, checked } = e.target;
+
+    // clone the current array
+    const updatedAmenities = [...fields.amenities];
+
+    // Check if the checkbox is checked
+    if (checked) {
+      // Add the value to the array
+      updatedAmenities.push(value);
+    }
+    // If the checkbox is unchecked
+    else {
+      // Remove the value from the array
+      const index = updatedAmenities.indexOf(value);
+      //   updatedAmenities.splice(index, 1);
+      if (index !== -1) {
+        updatedAmenities.splice(index, 1);
+      }
+    }
+
+    setFields((prevFields) => ({
+      ...prevFields,
+      amenities: updatedAmenities,
+    }));
+  };
+  const handleImageChange = (e) => {
+    const { files } = e.target;
+    // console.log(files);
+
+    // clone the current images array
+    const updatedImages = [...fields.images];
+
+    // Loop through the files or Add the first 4 files to the array
+    for (const file of files) {
+      updatedImages.push(file);
+    }
+
+    // Update the state with the new images array
+    setFields((prevFields) => ({
+      ...prevFields,
+      images: updatedImages,
+    }));
+  };
 
   // useEffect(() => {
   //   setMounted(true);
