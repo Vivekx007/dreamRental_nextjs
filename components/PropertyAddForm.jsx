@@ -111,9 +111,9 @@ const PropertyAddForm = () => {
 
   return (
     // mounted && (
-    <form>
+    <form action="/api/properties" method="POST" encType="multipart/form-data">
+      {/* encType is used to send files or images  */}{" "}
       <h2 className="text-3xl text-center font-semibold mb-6">Add Property</h2>
-
       <div className="mb-4">
         <label htmlFor="type" className="block text-gray-700 font-bold mb-2">
           Property Type
@@ -167,7 +167,6 @@ const PropertyAddForm = () => {
           onChange={handleChange}
         ></textarea>
       </div>
-
       <div className="mb-4 bg-blue-50 p-4">
         <label className="block text-gray-700 font-bold mb-2">Location</label>
         <input
@@ -209,7 +208,6 @@ const PropertyAddForm = () => {
           onChange={handleChange}
         />
       </div>
-
       <div className="mb-4 flex flex-wrap">
         <div className="w-full sm:w-1/3 pr-2">
           <label htmlFor="beds" className="block text-gray-700 font-bold mb-2">
@@ -257,7 +255,6 @@ const PropertyAddForm = () => {
           />
         </div>
       </div>
-
       <div className="mb-4">
         <label className="block text-gray-700 font-bold mb-2">Amenities</label>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
@@ -447,7 +444,6 @@ const PropertyAddForm = () => {
           </div>
         </div>
       </div>
-
       <div className="mb-4 bg-blue-50 p-4">
         <label className="block text-gray-700 font-bold mb-2">
           Rates (Leave blank if not applicable)
@@ -494,7 +490,6 @@ const PropertyAddForm = () => {
           </div>
         </div>
       </div>
-
       <div className="mb-4">
         <label
           htmlFor="seller_name"
@@ -505,7 +500,7 @@ const PropertyAddForm = () => {
         <input
           type="text"
           id="seller_name"
-          name="seller_info.name."
+          name="seller_info.name"
           className="border rounded w-full py-2 px-3"
           placeholder="Name"
           value={fields.seller_info.name}
@@ -547,7 +542,6 @@ const PropertyAddForm = () => {
           onChange={handleChange}
         />
       </div>
-
       <div className="mb-4">
         <label htmlFor="images" className="block text-gray-700 font-bold mb-2">
           Images (Select up to 4 images)
@@ -560,9 +554,9 @@ const PropertyAddForm = () => {
           accept="image/*"
           multiple
           onChange={handleImageChange}
+          required
         />
       </div>
-
       <div>
         <button
           className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
