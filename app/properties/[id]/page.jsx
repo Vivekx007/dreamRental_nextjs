@@ -7,6 +7,7 @@ import PropertyHeaderImage from "@/components/PropertyHeaderImage";
 import PropertyDetail from "@/components/PropertyDetail";
 import Link from "next/link";
 import Spinner from "@/components/Spinner";
+import PropertyImages from "@/components/PropertyImages";
 
 const PropertiesPage = () => {
   const { id } = useParams();
@@ -146,6 +147,7 @@ const PropertiesPage = () => {
               </div>
             </div>
           </section>
+          <PropertyImages images={property.images} />
         </>
       )}
     </>

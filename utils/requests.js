@@ -7,8 +7,8 @@ async function fetchProperties() {
     if (!apiDomain) {
       return [];
     }
-    const res = await fetch(`${apiDomain}/properties`);
-
+    const res = await fetch(`${apiDomain}/properties`, { cache: "no-store" }); // Im using this option to ensure that the browser always fetches the latest data from the server
+    // cache: "no-store" option is used to ensure that the browser does not cache the response
     if (!res.ok) {
       throw new Error("An error occurred while fetching the data");
     }
