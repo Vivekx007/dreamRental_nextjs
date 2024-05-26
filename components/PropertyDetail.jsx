@@ -6,6 +6,7 @@ import {
   FaCheck,
   FaMapMarker,
 } from "react-icons/fa";
+import PropertyMap from "./PropertyMap";
 
 const PropertyDetail = ({ property }) => {
   return (
@@ -92,7 +93,23 @@ const PropertyDetail = ({ property }) => {
         </ul>
       </div>
       <div className="bg-white p-6 rounded-lg shadow-md mt-6">
-        <div id="map"></div>
+        {property.location &&
+        property.location.street &&
+        property.location.city &&
+        property.location.state ? (
+          <iframe
+            src={`https://maps.google.com/maps?q=${property.location.street},${property.location.city},${property.location.state}&z=18&output=embed`}
+            width="100%"
+            height="450"
+            frameBorder="0"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            aria-hidden="false"
+            tabIndex="0"
+          ></iframe>
+        ) : (
+          <p>No location data found</p>
+        )}
       </div>
     </main>
   );
